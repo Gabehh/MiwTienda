@@ -266,8 +266,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{097a2a7a-882e-44e9-840d-dd7a7672b584}</Project>
+    <ProjectReference Include="BusinessLayer\BusinessLayer.csproj">
+      <Project>{097A2A7A-882E-44E9-840D-DD7A7672B584}</Project>
       <Name>BusinessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="DataLayer\DataLayer.csproj">
