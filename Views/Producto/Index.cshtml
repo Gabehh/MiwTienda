@@ -15,16 +15,24 @@
         <h2>Productos encontrados:</h2>
         foreach (var producto in Model.productos)
         {
-            <div class="jumbotron jumbotron-fluid">
+
+            <div class="jumbotron jumbotron-fluid jumbotron-margin">
                 <div class="container">
-                    <h1 class="display-6">@producto.Nombre</h1>
-                    <p class="lead">Precio: @producto.Precio €</p>
-                    <p class="lead">Cantidad: @producto.Cantidad</p>
-                    <p class="lead">Descipcion: @producto.Descripcion</p>
+                    <h1 class="text-center">@producto.Nombre</h1>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 text-center">
+                            <img src="@producto.Imagen" style="width:70%;height:90%" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <p class="lead">Precio: @producto.Precio €</p>
+                            <p class="lead">Disponible: @producto.Cantidad</p>
+                            <p class="lead">@producto.Descripcion</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+
         }
     }
-
 }

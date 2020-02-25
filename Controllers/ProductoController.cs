@@ -15,14 +15,15 @@ namespace MiwTienda.Controllers
         {
             try
             {
-                var productos = new ProductoBL().GetProductoByWord(producto.palabraClave);
+                var productos = new ProductoBL().GetProductosByWord(producto.palabraClave);
                 producto.productos = productos;
                 return View(producto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View("Error");
             }
+
         }
     }
 }

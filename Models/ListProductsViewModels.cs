@@ -1,6 +1,5 @@
 ﻿using DataLayer.Model;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MiwTienda.Models
 {

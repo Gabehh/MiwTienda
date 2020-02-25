@@ -1,5 +1,4 @@
 ﻿@using MiwTienda.Models
-@model  ProductoViewModel
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,15 +20,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    @Html.ActionLink("Acerca de", "About", "Home", new { @class = "nav-link" })
+                    @Html.ActionLink("Acerca de", "About", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Contacto", "Contact", "Home", new { @class = "nav-link" })
+                    @Html.ActionLink("Contacto", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
                 </li>
             </ul>
             @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
             {
-                @Html.TextBoxFor(m => m.palabraClave, new { @class = "form-control mr-sm-2" })
+                @Html.TextBox("palabraClave","", new { @class = "form-control mr-sm-2" })
                 <input type="submit" value="Buscar" class="btn btn-outline-info my-2 my-sm-0" />
             }
             @Html.Partial("_LoginPartial")

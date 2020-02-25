@@ -10,10 +10,10 @@ namespace BusinessLayer
 {
     public class ProductoBL
     {
-        public List<Producto> GetProductoByWord(string palabra)
+        public List<Producto> GetProductosByWord(string palabra)
         {
             ProductoRepository productoRespository = new ProductoRepository();
-            var productos = String.IsNullOrEmpty(palabra) ? productoRespository.GetAll() : productoRespository.Filter(u => u.Nombre.Contains(palabra));
+            var productos = String.IsNullOrEmpty(palabra) ? productoRespository.GetAll() : productoRespository.Filter(u => u.Nombre.Contains(palabra) || u.Descripcion.Contains(palabra));
             return productos;
         }
     }
