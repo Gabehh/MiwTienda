@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -67,10 +68,10 @@ namespace MiwTienda.Controllers
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                //TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                //Logins = await UserManager.GetLoginsAsync(userId),
+                //BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
@@ -355,10 +356,12 @@ namespace MiwTienda.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var user = new AccountBL().GetClienteById(Convert.ToInt32(User.Identity.GetUserId()));
+                
+                //UserManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
-                return user.PasswordHash != null;
+                return user.Password != null;
             }
             return false;
         }

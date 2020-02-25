@@ -1,0 +1,30 @@
+﻿@using MiwTienda.Models
+@model ProductoViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    if (Model.productos.Count == 0 && !string.IsNullOrEmpty(Model.palabraClave))
+    {
+        <h1 class="text-danger">Productos no encontrados.</h1>
+        <h2 class="text-danger">No se ha encontrado ningun producto con la palabra clave: "@Model.palabraClave".</h2>
+    }
+    else
+    {
+        <h2>Productos encontrados:</h2>
+        foreach (var producto in Model.productos)
+        {
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-6">@producto.Nombre</h1>
+                    <p class="lead">Precio: @producto.Precio €</p>
+                    <p class="lead">Cantidad: @producto.Cantidad</p>
+                    <p class="lead">Descipcion: @producto.Descripcion</p>
+                </div>
+            </div>
+
+        }
+    }
+
+}

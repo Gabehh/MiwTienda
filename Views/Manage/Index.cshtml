@@ -24,37 +24,38 @@
             ]
         </dd>
         <dt>Inicios de sesión externos:</dt>
+        @*
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Administrar", "ManageLogins") ]
         </dd>
-        @*
+
             Los números de teléfono se pueden usar como una segunda fase de comprobación en un sistema de autenticación en dos fases.
-             
+
              Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
                 para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases mediante SMS.
-             
+
              Quite la marca de comentario del bloque siguiente después de configurar la autenticación en dos fases
         *@
-        @*  
-            <dt>Número de teléfono:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
+        @*
+        <dt>Número de teléfono:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Quitar" class="btn-link" />]</text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Quitar" class="btn-link" />]</text>
                 }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
         *@
         <dt>Autenticación de dos factores:</dt>
         <dd>
@@ -63,25 +64,25 @@
                 para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases.
             </p>
             @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Habilitado
-                        <input type="submit" value="Deshabilitar" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>Habilitado
+                    <input type="submit" value="Deshabilitar" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Deshabilitada
-                        <input type="submit" value="Habilitar" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
+                    @Html.AntiForgeryToken()
+                    <text>Deshabilitada
+                    <input type="submit" value="Habilitar" class="btn btn-link" />
+                    </text>
+                }
+            }*@
         </dd>
     </dl>
 </div>
