@@ -15,7 +15,7 @@ namespace DataLayer.Repository
 
         public List<T> GetAll()
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 return (List<T>)context.Set<T>().ToList();
             }
@@ -34,7 +34,7 @@ namespace DataLayer.Repository
                 includelist.Add(body.Member.Name);
             }
 
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 DbQuery<T> query = context.Set<T>();
 
@@ -48,7 +48,7 @@ namespace DataLayer.Repository
 
         public T Single(Expression<Func<T, bool>> predicate)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 return context.Set<T>().FirstOrDefault(predicate);
             }
@@ -67,7 +67,7 @@ namespace DataLayer.Repository
                 includelist.Add(body.Member.Name);
             }
 
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 DbQuery<T> query = context.Set<T>();
 
@@ -80,7 +80,7 @@ namespace DataLayer.Repository
 
         public List<T> Filter(Expression<Func<T, bool>> predicate)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 return (List<T>)context.Set<T>().Where(predicate).ToList();
             }
@@ -99,7 +99,7 @@ namespace DataLayer.Repository
                 includelist.Add(body.Member.Name);
             }
 
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 DbQuery<T> query = context.Set<T>();
 
@@ -112,7 +112,7 @@ namespace DataLayer.Repository
 
         public void Create(T entity)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Set<T>().Add(entity);
                 context.SaveChanges();
@@ -121,7 +121,7 @@ namespace DataLayer.Repository
 
         public void Update(T entity)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Entry(entity).State = EntityState.Modified;
                 context.SaveChanges();
@@ -130,7 +130,7 @@ namespace DataLayer.Repository
 
         public void Delete(T entity)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Entry(entity).State = EntityState.Deleted;
                 context.SaveChanges();
@@ -139,7 +139,7 @@ namespace DataLayer.Repository
 
         public void Delete(Expression<Func<T, bool>> predicate)
         {
-            using (ModelContainer context = new ModelContainer())
+            using (ModelContainer1 context = new ModelContainer1())
             {
                 var entities = context.Set<T>().Where(predicate).ToList();
                 entities.ForEach(x => context.Entry(x).State = EntityState.Deleted);

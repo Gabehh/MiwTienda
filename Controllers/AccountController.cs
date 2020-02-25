@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer;
+using DataLayer.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -66,28 +68,22 @@ namespace MiwTienda.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
-            // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
-            // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var persona = new AccountBL().GetCliente(model.Email, model.Password);
+            if(persona != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
+                SingIn(persona);
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+                return View(model);
             }
         }
 
@@ -151,18 +147,12 @@ namespace MiwTienda.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                AccountBL accountBL = new AccountBL();
+                var persona = new Cliente { Nombre = model.Nombre, Direccion = model.Direccion, Email = model.Email, Password = model.Password };
+                var result = accountBL.CreateAccount(persona);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Enviar correo electrónico con este vínculo
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
-
+                    SingIn(persona);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -450,6 +440,20 @@ namespace MiwTienda.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        private void SingIn(Cliente persona)
+        {
+            var claims = new[] 
+            { 
+                new Claim(ClaimTypes.Name, persona.Nombre), 
+                new Claim(ClaimTypes.Email, persona.Email), 
+                new Claim(ClaimTypes.NameIdentifier, persona.Id.ToString()) 
+            };
+            var identity = new ClaimsIdentity(claims, "ApplicationCookie");
+            var context = Request.GetOwinContext();
+            var authManager = context.Authentication;
+            authManager.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

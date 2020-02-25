@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class ClienteRepository: BaseRepository<Cliente>
+    public class ClienteRepository : BaseRepository<Cliente>, IClienteRepository
     {
-
+        public bool CheckEmail(string email)
+        {
+            using (ModelContainer1 context = new ModelContainer1())
+            {
+                return context.ClienteSet.Any(u => u.Email == email);
+            }
+        }
     }
 }

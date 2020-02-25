@@ -13,10 +13,10 @@ namespace DataLayer.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ModelContainer : DbContext
+    public partial class ModelContainer1 : DbContext
     {
-        public ModelContainer()
-            : base("name=ModelContainer")
+        public ModelContainer1()
+            : base("name=ModelContainer1")
         {
         }
     
@@ -25,12 +25,12 @@ namespace DataLayer.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Rol> RolSet { get; set; }
         public virtual DbSet<Cliente> ClienteSet { get; set; }
+        public virtual DbSet<Rol> RolSet { get; set; }
         public virtual DbSet<Pedido> PedidoSet { get; set; }
         public virtual DbSet<Producto> ProductoSet { get; set; }
-        public virtual DbSet<MetodoPago> MetodoPagoSet { get; set; }
         public virtual DbSet<Factura> FacturaSet { get; set; }
+        public virtual DbSet<MetodoPago> MetodoPagoSet { get; set; }
         public virtual DbSet<Estado> EstadoSet { get; set; }
     }
 }
