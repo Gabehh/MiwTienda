@@ -1,0 +1,55 @@
+﻿@using MiwTienda.Models
+@model ProductoViewModel
+@{
+    ViewBag.Title = Model.nombre;
+}
+    <script src="~/Scripts/jquery.elevatezoom.js"></script>
+<div class="margin-box">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <img src="@Model.imagen" id="zoom_01" style="width:70%;height:90%; padding: 20px;" />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left">
+            @{
+                <h2>@Model.nombre</h2><br />
+                var cantidad = Model.stock;
+                if (cantidad > 0)
+                {
+                    <h4>Disponibilidad: En Stock</h4>
+                    if (cantidad <= 10)
+                    {
+                        <h5 style="color:red">Solo quedan: @cantidad</h5>
+                    }
+                }
+                else
+                {
+                    <h1>Sin Stock</h1>
+                }
+                <h6>Descripción: @Model.descripcion</h6><br />
+                <h4>Precio: @Model.valor €</h4>
+                using (Html.BeginForm("AgregarCarrito", "Producto", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.HiddenFor(u => u.id);
+                    @Html.HiddenFor(u => u.stock);
+                    @Html.HiddenFor(u => u.valor);
+                    @Html.HiddenFor(u => u.descripcion);
+                    @Html.HiddenFor(u => u.imagen);
+                    @Html.HiddenFor(u => u.nombre);
+                    @Html.TextBoxFor(m => m.cantidadComprar, new { value = 1, type = "number", min = "0", max = "20", step = "1" })
+                    <input type="submit" value="Añadir al carrito" class="btn btn-success" />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .margin-box {
+        margin-top: 100px
+    }
+</style>
+
+<script>
+    $("#zoom_01").elevateZoom({tint:true, tintColour:'#F90', tintOpacity:0.5});
+</script>

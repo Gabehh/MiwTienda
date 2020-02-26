@@ -16,5 +16,11 @@ namespace BusinessLayer
             var productos = String.IsNullOrEmpty(palabra) ? productoRespository.GetAll() : productoRespository.Filter(u => u.Nombre.Contains(palabra) || u.Descripcion.Contains(palabra));
             return productos;
         }
+
+        public Producto GetProductoById(int id)
+        {
+            ProductoRepository productoRespository = new ProductoRepository();
+            return productoRespository.Single(u => u.Id == id);
+        }
     }
 }
