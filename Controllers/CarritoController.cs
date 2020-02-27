@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MiwTienda.Controllers
 {
+    [Authorize]
     public class CarritoController : Controller
     {
         // GET: Carrito
@@ -38,6 +39,12 @@ namespace MiwTienda.Controllers
                 carrito.Add(_producto);
             }
             return RedirectToAction("Index", "Producto");
+        }
+
+        public ActionResult DeleteAll(CarritoCompra carrito)
+        {
+            carrito.Clear();
+            return RedirectToAction("Index", "Carrito");
         }
     }
 }

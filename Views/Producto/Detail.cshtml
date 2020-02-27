@@ -11,6 +11,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left">
             @{
+                string Disabled = "";
                 <h2>@Model.nombre</h2><br />
                 var cantidad = Model.stock;
                 if (cantidad > 0)
@@ -23,7 +24,8 @@
                 }
                 else
                 {
-                    <h1>Sin Stock</h1>
+                    Disabled = "disabled";
+                    <h1 style="color:red">Sin Stock</h1>
                 }
                 <h6>Descripción: @Model.descripcion</h6><br />
                 <h4>Precio: @Model.valor €</h4>
@@ -36,7 +38,7 @@
                     @Html.HiddenFor(u => u.imagen);
                     @Html.HiddenFor(u => u.nombre);
                     @Html.TextBoxFor(m => m.cantidadComprar, new { value = 1, type = "number", min = "0", max = "20", step = "1" })
-                    <input type="submit" value="Añadir al carrito" class="btn btn-success" />
+                    <input type="submit" value="Añadir al carrito" class="btn btn-success" @Disabled />
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                 }
             }
