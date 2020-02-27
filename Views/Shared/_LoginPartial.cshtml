@@ -12,8 +12,8 @@
                 @User.Identity.GetUserName()
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                @Html.ActionLink("Configuración","Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="dropdown-item" })
-                <a class="dropdown-item" href="#">Carrito</a>
+                @Html.ActionLink("Configuración", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "dropdown-item" })
+                @Html.ActionLink("Carrito", "Index", "Carrito", routeValues: null, htmlAttributes: new { title = "Manage", @class = "dropdown-item" })
             </div>
         </li>
 

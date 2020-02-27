@@ -184,6 +184,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\CestaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -191,7 +192,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CarritoViewModels.cs" />
+    <Compile Include="Models\Binders\CarritoCompraModelBinder.cs" />
+    <Compile Include="Models\CarritoCompra.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListProductsViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

@@ -19,4 +19,9 @@ namespace MiwTienda.Models
         public int stock { get; set; }
         public int cantidadComprar { get; set; }
     }
+
+    public class CarritoViewModel
+    {
+        public List<ProductoViewModel> carrito { get; set; }
+    }
 }

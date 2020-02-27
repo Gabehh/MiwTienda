@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MiwTienda.Models;
+using MiwTienda.Models.Binders;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -21,6 +19,7 @@ namespace MiwTienda
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimsIdentity.DefaultNameClaimType;
+            ModelBinders.Binders.Add(typeof(CarritoCompra), new CarritoCompraModelBinder());
         }
     }
 }

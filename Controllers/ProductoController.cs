@@ -60,7 +60,7 @@ namespace MiwTienda.Controllers
                 ModelState.AddModelError("", "El Stock es insuficiente.");
                 return View("Detail", producto);
             }
-            return RedirectToAction("Index", "Carrito");
+            return RedirectToAction("AddProducto", "Carrito", producto);
         }
     }
 }
