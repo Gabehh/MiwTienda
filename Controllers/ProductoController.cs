@@ -11,6 +11,7 @@ namespace MiwTienda.Controllers
     public class ProductoController : Controller
     {
         // GET: Producto
+        [HttpGet]
         public ActionResult Index(string palabraClave)
         {
             try
@@ -41,24 +42,18 @@ namespace MiwTienda.Controllers
             return View(productoView);
         }
 
-        [ActionName("OverloadedActionName")]
-        public ActionResult Detail(ProductoViewModel producto)
-        {
-            return View(producto);
-        }
-
         [HttpPost]
-        public ActionResult AgregarCarrito(ProductoViewModel producto)
+        public ActionResult Detail(ProductoViewModel producto)
         {
             if (producto.cantidadComprar == 0)
             {
                 ModelState.AddModelError("", "Debe seleccionar la cantidad");
-                return View("Detail", producto);
+                return View(producto);
             }
             else if (producto.cantidadComprar > producto.stock )
             {
                 ModelState.AddModelError("", "El Stock es insuficiente.");
-                return View("Detail", producto);
+                return View(producto);
             }
             return RedirectToAction("AddProducto", "Carrito", producto);
         }

@@ -92,6 +92,7 @@
     <Compile Include="Repository\FacturaRepository.cs" />
     <Compile Include="Repository\IClienteRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PagoRepository.cs" />
     <Compile Include="Repository\PedidoRepository.cs" />
     <Compile Include="Repository\ProductoRepository.cs" />
   </ItemGroup>

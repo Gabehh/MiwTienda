@@ -6,7 +6,8 @@ using System.Web;
 
 namespace MiwTienda.Models
 {
-    public class CarritoCompra: List<Producto>
+    public class CarritoCompra : List<Producto>
     {
+        public bool clickPay { get; set; } = false;
     }
 }

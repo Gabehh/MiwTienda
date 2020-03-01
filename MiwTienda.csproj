@@ -187,6 +187,7 @@
     <Compile Include="Controllers\CestaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +198,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListProductsViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PedidoViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -363,6 +365,8 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Detail.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Pedido\Compra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

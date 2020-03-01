@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBL.cs" />
+    <Compile Include="PagoBL.cs" />
     <Compile Include="ProductoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

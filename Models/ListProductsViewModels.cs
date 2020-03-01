@@ -20,7 +20,7 @@ namespace MiwTienda.Models
         public int cantidadComprar { get; set; }
     }
 
-    public class CarritoViewModel
+    public class CarritoViewModels
     {
         public List<ProductoViewModel> carrito { get; set; }
     }

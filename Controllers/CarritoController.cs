@@ -13,8 +13,14 @@ namespace MiwTienda.Controllers
     public class CarritoController : Controller
     {
         // GET: Carrito
+        [HttpGet]
         public ActionResult Index(CarritoCompra carrito)
         {
+            if (carrito.clickPay)
+            {
+                ModelState.AddModelError("", "No hay articulos en el carrito");
+                carrito.clickPay = false;
+            }
 
             var productos = carrito.GroupBy(u => u.Id)
                                    .Select(x => new ProductoViewModel 
@@ -26,7 +32,7 @@ namespace MiwTienda.Controllers
                                        nombre = x.First().Nombre,
                                        valor = x.First().Precio * x.Count()
                                    });
-            CarritoViewModel cesta = new CarritoViewModel { carrito = productos.ToList() };
+            CarritoViewModels cesta = new CarritoViewModels { carrito = productos.ToList() };
             return View(cesta);
         }
 
@@ -45,6 +51,19 @@ namespace MiwTienda.Controllers
         {
             carrito.Clear();
             return RedirectToAction("Index", "Carrito");
+        }
+
+        public ActionResult CheckCarrito(CarritoCompra carrito)
+        {
+            if (carrito.Count > 0)
+            {
+                return RedirectToAction("Index", "Pedido");
+            }
+            else
+            {
+                carrito.clickPay = true;
+                return RedirectToAction("Index", "Carrito");
+            }
         }
     }
 }

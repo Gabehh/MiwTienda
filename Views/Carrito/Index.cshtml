@@ -1,9 +1,12 @@
 ﻿@using MiwTienda.Models
-@model CarritoViewModel
+@model CarritoViewModels
 @{
     ViewBag.Title = "Carrito de Compra";
+    string mensaje = (Model.carrito.Count == 1 ? "Artículo" : "Artículos") + " en el carrito";
 }
 <h2>Carrito</h2>
+@Html.ValidationSummary("", new { @class = "text-danger" })
+<h3>(@Model.carrito.Count) @mensaje</h3>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
@@ -45,6 +48,7 @@
         <input type="button" value="Comprar" onclick=@Html.ActionLink("Detail", "Producto")*@
 </div>
 <input type="button" class="btn btn-success" value="Vaciar Cesta" onclick="location.href='@Url.Action("DeleteAll", "Carrito")'" />
+<input type="button" class="btn btn-success" value="Comprar" onclick="location.href='@Url.Action("CheckCarrito", "Carrito")'" />
 <script>
     $(document).ready(function () {
         $('#table').DataTable();
