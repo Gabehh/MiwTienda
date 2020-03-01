@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace MiwTienda.Controllers
 {
-
     [Authorize]
     public class PedidoController : Controller
     {
