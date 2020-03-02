@@ -28,7 +28,7 @@
                     @Html.ActionLink("Contacto", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
                 </li>
             </ul>
-            @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+            @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
             {
                 @Html.TextBox("palabraClave","", new { @class = "form-control mr-sm-2" })
                 <input type="submit" value="Buscar" class="btn btn-outline-info my-2 my-sm-0" />
@@ -37,35 +37,6 @@
         </div>
     </nav>
 
-    <!--
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Tienda Online", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>
-                        <form class="form-inline" action="/action_page.php">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="btn btn-success" type="submit">Search</button>
-                        </form>
-                    </li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-
-        -->
     <div class="container body-content" style="margin-top:15px">
         @RenderBody()
         <hr />

@@ -18,8 +18,8 @@ namespace DataLayer.Repository
         List<T> Filter(Expression<Func<T, bool>> predicate);
         List<T> Filter(Expression<Func<T, bool>> predicate, List<Expression<Func<T, object>>> includes);
 
-        void Create(T entity);
-        void Update(T entity);
+        bool Create(T entity);
+        bool Update(T entity);
 
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> predicate);

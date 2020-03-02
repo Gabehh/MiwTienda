@@ -22,5 +22,10 @@ namespace BusinessLayer
             ProductoRepository productoRespository = new ProductoRepository();
             return productoRespository.Single(u => u.Id == id);
         }
+
+        public bool UpdateStock(IDictionary<int,int> productosNewStock)
+        {
+            return new ProductoRepository().UpdateMultiplesStock(productosNewStock);
+        }
     }
 }

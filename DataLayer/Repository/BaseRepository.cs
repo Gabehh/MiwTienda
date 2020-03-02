@@ -110,21 +110,21 @@ namespace DataLayer.Repository
         }
 
 
-        public void Create(T entity)
+        public bool Create(T entity)
         {
             using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Set<T>().Add(entity);
-                context.SaveChanges();
+                return context.SaveChanges()>0;
             }
         }
 
-        public void Update(T entity)
+        public bool Update(T entity)
         {
             using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Entry(entity).State = EntityState.Modified;
-                context.SaveChanges();
+                return context.SaveChanges()>0;
             }
         }
 

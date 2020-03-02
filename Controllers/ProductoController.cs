@@ -11,7 +11,7 @@ namespace MiwTienda.Controllers
     public class ProductoController : Controller
     {
         // GET: Producto
-        [HttpGet]
+
         public ActionResult Index(string palabraClave)
         {
             try

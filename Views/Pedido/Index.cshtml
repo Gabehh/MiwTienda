@@ -23,9 +23,29 @@
             </div>
         </div>
     </div>
-    @using (Html.BeginForm("Compra", "Pedido", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("Compra", "Pedido", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
-        @Html.DropDownListFor(m => m.metodoPago, selectListItem);
-        <input type="submit" value="Añadir al carrito" class="btn btn-success"/>
+        @Html.HiddenFor(m => m.cliente.Id);
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(m => m.metodoPago)
+                @Html.DropDownListFor(m => m.methodPay, selectListItem, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.numero, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.numero, Model.numero.ToString(), new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.caducidad, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.caducidad, Model.caducidad, new { @class = "form-control", @placeholder = "MES/AÑO" })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.codigo, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.codigo, Model.codigo, new { @class = "form-control", @placeholder = " . . . " })
+            </div>
+        </div>
+        <input type="submit" value="Pagar" class="btn btn-outline-info my-2 my-sm-0" />
     }
 </div>

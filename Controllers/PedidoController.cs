@@ -15,8 +15,9 @@ namespace MiwTienda.Controllers
     public class PedidoController : Controller
     {
         // GET: Pedido
-        public ActionResult Index()
+        public ActionResult Index(CarritoCompra carrito)
         {
+            if (carrito.Count == 0) return RedirectToAction("Index", "Home");
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             var id = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
                    .Select(c => c.Value).SingleOrDefault();
@@ -26,8 +27,34 @@ namespace MiwTienda.Controllers
             return View(pedidoViewModel);
         }
 
-        public ActionResult Compra()
+        public ActionResult Compra(CarritoCompra carrito, PedidoViewModels pedidoViewModels)
         {
+            Pedido pedido = new Pedido()
+            {
+                ClienteId = pedidoViewModels.cliente.Id,
+                EstadoId = 1,//facturado
+                Factura = new Factura()
+                {
+                    Fecha = DateTime.Now,
+                    MetodoPagoId = pedidoViewModels.methodPay
+                }              
+            };
+            if(new PedidoBL().CreateAndUpdatePedido(pedido, carrito))
+            {
+                // Reducir Stock
+                var productosForUpdate = carrito.GroupBy(u => u.Id)
+                                        .Select(x => new 
+                                        {
+                                            cantidadComprar = x.Count(),
+                                            id = x.First().Id,
+                                        }).ToDictionary(x=>x.id, x=>x.cantidadComprar);
+                if(new ProductoBL().UpdateStock(productosForUpdate))
+                {
+                    carrito.Clear();
+                    return View();
+                }
+
+            }   
             return View();
         }
     }
