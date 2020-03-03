@@ -27,6 +27,16 @@ namespace MiwTienda.Controllers
             return View(pedidoViewModel);
         }
 
+        [HttpGet]
+        public ActionResult MisFacturas()
+        {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var id = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                   .Select(c => c.Value).SingleOrDefault();
+            TempData["id"] = id.ToString();
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Compra(CarritoCompra carrito, PedidoViewModels pedidoViewModels)
         {

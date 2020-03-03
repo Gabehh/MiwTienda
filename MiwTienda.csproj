@@ -184,7 +184,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
-    <Compile Include="Controllers\CestaController.cs" />
+    <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
@@ -354,6 +354,7 @@
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Views\Pedido\Compra.cshtml" />
+    <Content Include="Views\Pedido\MisFacturas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,7 +399,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49389</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44307/</IISUrl>
+          <IISUrl>http://localhost:44307/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

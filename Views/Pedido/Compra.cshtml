@@ -6,9 +6,9 @@
 }
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <h2>Factura</h2>
-<div id="factura"></div>
-
-    <script>
+<h3>¡ La compra ha sido realizada !</h3>
+<div id="factura" class="center"></div>
+<script>
     debugger;
     var doc = new jsPDF()
     doc.setFontSize(22)
@@ -34,3 +34,9 @@
     $('#factura').html("<iframe style='width:700px;height:700px' src='"+data+"'></iframe>");
 </script>
 
+<style>
+    .center {
+  text-align: center;
+  border: 0px solid black;
+}
+</style>
