@@ -23,4 +23,9 @@ namespace MiwTienda.Models
         public string codigo { get; set; }
         public int methodPay { get; set; }
     }
+
+    public class FacturaViewModels
+    {
+        public Factura factura { get; set; }
+    }
 }

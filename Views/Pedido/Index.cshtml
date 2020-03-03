@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    @using (Html.BeginForm("Compra", "Pedido", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Compra", "Pedido", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { cliente = Model.cliente}))
     {
         @Html.HiddenFor(m => m.cliente.Id);
         <div class="form-row">

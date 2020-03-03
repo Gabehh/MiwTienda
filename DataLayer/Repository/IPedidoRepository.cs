@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace DataLayer.Repository
 {
     public interface IPedidoRepository
     {
-        bool UpdateMultiplesStock(IDictionary<int, int> productosNewStock);
+        bool CreatePedidoWithProducts(Pedido pedido);
+        Pedido GetPedido(int id);
     }
 }

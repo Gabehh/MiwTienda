@@ -16,5 +16,11 @@ namespace BusinessLayer
             return pagoRepository.GetAll();
         }
 
+        public string GetNameMethod(int id)
+        {
+            PagoRepository pagoRepository = new PagoRepository();
+            return pagoRepository.Single(u => u.Id == id)?.TipoMetodo;
+        }
+
     }
 }

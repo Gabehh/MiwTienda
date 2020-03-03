@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class ProductoRepository : BaseRepository<Producto>, IPedidoRepository
+    public class ProductoRepository : BaseRepository<Producto>, IProductoRepository
     {
         public bool UpdateMultiplesStock(IDictionary<int, int> productosNewStock)
         {

@@ -10,6 +10,13 @@ namespace BusinessLayer
 {
     public class PedidoBL
     {
+
+        public Pedido GetPedido(int id)
+        {
+            PedidoRepository pedidoRepository = new PedidoRepository();
+            return pedidoRepository.GetPedido(id);
+        }
+
         public bool CrearPedido(Pedido pedido)
         {
             PedidoRepository pedidoRepository = new PedidoRepository();
@@ -22,16 +29,10 @@ namespace BusinessLayer
             return pedidoRepository.Update(pedido);
         }
 
-        public bool CreateAndUpdatePedido(Pedido pedido, List<Producto> carrito)
+        public bool CreatePedidoProductos(Pedido pedido)
         {
-            if (CrearPedido(pedido))
-            {
-                pedido.Producto = carrito;
-                if (UpdatePedido(pedido)){
-                    return true;
-                }
-            }
-            return false;
+            PedidoRepository pedidoRepository = new PedidoRepository();
+            return pedidoRepository.CreatePedidoWithProducts(pedido);
         }
     }
 }

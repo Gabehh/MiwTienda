@@ -27,35 +27,45 @@ namespace MiwTienda.Controllers
             return View(pedidoViewModel);
         }
 
+        [HttpPost]
         public ActionResult Compra(CarritoCompra carrito, PedidoViewModels pedidoViewModels)
         {
-            Pedido pedido = new Pedido()
+            if (carrito.Count > 0)
             {
-                ClienteId = pedidoViewModels.cliente.Id,
-                EstadoId = 1,//facturado
-                Factura = new Factura()
+                PedidoBL pedidoBL = new PedidoBL();
+                Pedido pedido = new Pedido()
                 {
-                    Fecha = DateTime.Now,
-                    MetodoPagoId = pedidoViewModels.methodPay
-                }              
-            };
-            if(new PedidoBL().CreateAndUpdatePedido(pedido, carrito))
-            {
-                // Reducir Stock
-                var productosForUpdate = carrito.GroupBy(u => u.Id)
-                                        .Select(x => new 
-                                        {
-                                            cantidadComprar = x.Count(),
-                                            id = x.First().Id,
-                                        }).ToDictionary(x=>x.id, x=>x.cantidadComprar);
-                if(new ProductoBL().UpdateStock(productosForUpdate))
+                    ClienteId = pedidoViewModels.cliente.Id,
+                    EstadoId = 1,//facturado
+                    Factura = new Factura()
+                    {
+                        Fecha = DateTime.Now,
+                        MetodoPagoId = pedidoViewModels.methodPay
+                    },
+                    Producto = carrito.OrderBy(u=>u.Id).ToArray()
+                };
+                if (pedidoBL.CreatePedidoProductos(pedido))
                 {
-                    carrito.Clear();
-                    return View();
+                    //REFRESCAR PEDIDO (SE PUEDE HACER MEJOR)
+                    pedido = pedidoBL.GetPedido(pedido.Id);
+                    // Reducir Stock
+                    var productosForUpdate = carrito.GroupBy(u => u.Id)
+                                            .Select(x => new
+                                            {
+                                                cantidadComprar = x.Count(),
+                                                id = x.First().Id,
+                                            }).ToDictionary(x => x.id, x => x.cantidadComprar);
+                    if (new ProductoBL().UpdateStock(productosForUpdate))
+                    {
+                        pedido.Factura.MetodoPago = pedido.Factura.MetodoPago;
+                        pedido.Factura.Pedido.Cliente = pedido.Cliente;
+                        FacturaViewModels factura = new FacturaViewModels() { factura = pedido.Factura };
+                        carrito.Clear();
+                        return View(factura);
+                    }
                 }
-
-            }   
-            return View();
+            }
+            return View("Error");
         }
     }
 }

@@ -1,7 +1,36 @@
-﻿
+﻿@using MiwTienda.Models
+@model FacturaViewModels
 @{
-    ViewBag.Title = "Compra";
+    ViewBag.Title = "Factura";
+    var linea = new String(' ', 60);
 }
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<h2>Factura</h2>
+<div id="factura"></div>
 
-<h2>Compra</h2>
+    <script>
+    debugger;
+    var doc = new jsPDF()
+    doc.setFontSize(22)
+    doc.text(90, 20, 'FACTURA #' + "@Model.factura.Id")
+    doc.setFontSize(18)
+    doc.text(20, 30, 'Nombre: @Model.factura.Pedido.Cliente.Nombre');
+    doc.text(20, 40, 'Dirección: @Model.factura.Pedido.Cliente.Direccion');
+    doc.text(20, 50, "Fecha: @Model.factura.Fecha");
+    doc.text(20, 60, "Método Pago: @Model.factura.MetodoPago.TipoMetodo");
+    var longitud = 100
+    @foreach (var producto in Model.factura.Pedido.Producto) 
+    {
+        
+    <text>
+        doc.setFontSize(16)
+        doc.text(20, longitud = longitud + 10, "@producto.Nombre @linea @producto.Precio €");
+    </text>
+    }
+    doc.text(20, longitud = longitud + 30, "TOTAL: @Model.factura.Pedido.Producto.Sum(u=>u.Precio) €");
+
+    //doc.output('dataurlnewwindow', {})
+    var data = doc.output('dataurlstring', {});
+    $('#factura').html("<iframe style='width:700px;height:700px' src='"+data+"'></iframe>");
+</script>
 
