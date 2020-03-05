@@ -355,9 +355,12 @@
     <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Views\Pedido\Compra.cshtml" />
     <Content Include="Views\Pedido\MisFacturas.cshtml" />
+    <Content Include="Views\Producto\AgregarProducto.cshtml" />
+    <Content Include="Views\Producto\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagenes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

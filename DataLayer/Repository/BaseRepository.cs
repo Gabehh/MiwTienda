@@ -128,12 +128,12 @@ namespace DataLayer.Repository
             }
         }
 
-        public void Delete(T entity)
+        public bool Delete(T entity)
         {
             using (ModelContainer1 context = new ModelContainer1())
             {
                 context.Entry(entity).State = EntityState.Deleted;
-                context.SaveChanges();
+                return context.SaveChanges()>0;
             }
         }
 

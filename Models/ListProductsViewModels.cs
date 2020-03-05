@@ -1,5 +1,7 @@
 ﻿using DataLayer.Model;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace MiwTienda.Models
 {
@@ -23,5 +25,26 @@ namespace MiwTienda.Models
     public class CarritoViewModels
     {
         public List<ProductoViewModel> carrito { get; set; }
+    }
+
+    public class ProductCreateViewModel
+    {
+        public int id { get; set; }
+        [Required]
+        [Display(Name="Nombre")]
+        public string nombre { get; set; }
+        [Required]
+        [Display(Name = "Descripción")]
+        public string descripcion { get; set; }
+        [Required]
+        [Display(Name = "Valor")]
+        public double valor { get; set; }
+        public string rutaImagen { get; set; }
+        [Required]
+        [Display(Name = "Stock")]
+        public int stock { get; set; }
+        [Display(Name = "Imagen")]
+        [Required]
+        public HttpPostedFileBase imagen { get; set; }
     }
 }

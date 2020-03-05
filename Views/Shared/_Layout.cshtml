@@ -25,7 +25,7 @@
                     @Html.ActionLink("Acerca de", "About", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Contacto", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
+                    @Html.ActionLink("Agregar Producto", "AgregarProducto", "Producto", routeValues: null, htmlAttributes: new { @class = "nav-link" })
                 </li>
             </ul>
             @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
