@@ -45,5 +45,11 @@ namespace BusinessLayer
         {
             return new ProductoRepository().UpdateMultiplesStock(productosNewStock);
         }
+
+        public List<Producto> GetProductosLowStock()
+        {
+            ProductoRepository productoRespository = new ProductoRepository();
+            return productoRespository.Filter(u => u.Cantidad <= 2);
+        }
     }
 }

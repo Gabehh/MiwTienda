@@ -32,6 +32,24 @@ namespace MiwTienda.Controllers
             return View(cesta);
         }
 
+        [HttpGet]
+        public ActionResult Abastecimiento()
+        {
+            var productos = new ProductoBL().GetProductosLowStock()
+                            .Select(u => new Abastecimiento
+                            {
+                                id = u.Id,
+                                cantidad = u.Cantidad,
+                                mensaje = u.Cantidad == 0 ? "YA NO HAY EN STOCK" : "BAJA CANTIDAD",
+                                nombre = u.Nombre
+                            }).ToList();
+            ListAbastecimientoViewModel listAbastecimientoViewModel = new ListAbastecimientoViewModel
+            {
+                listaStock = productos
+            };
+            return View(listAbastecimientoViewModel);
+        }
+
         public ActionResult AddProducto(CarritoCompra carrito, ProductoViewModel producto)
         {
             ProductoBL productoBL = new ProductoBL();
@@ -46,6 +64,12 @@ namespace MiwTienda.Controllers
         public ActionResult DeleteAll(CarritoCompra carrito)
         {
             carrito.Clear();
+            return RedirectToAction("Index", "Carrito");
+        }
+
+        public ActionResult DeleteOneElement(CarritoCompra carrito,int id)
+        {
+            carrito.RemoveAll(u => u.Id == id);
             return RedirectToAction("Index", "Carrito");
         }
 

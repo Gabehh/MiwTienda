@@ -46,4 +46,17 @@ namespace MiwTienda.Models
         [Display(Name = "Imagen")]
         public HttpPostedFileBase imagen { get; set; }
     }
+
+    public class Abastecimiento
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public int cantidad { get; set; }
+        public string mensaje { get; set; }
+    }
+
+    public class ListAbastecimientoViewModel
+    {
+        public List<Abastecimiento> listaStock {get;set;}
+    }
 }
