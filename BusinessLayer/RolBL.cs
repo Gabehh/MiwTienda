@@ -15,5 +15,11 @@ namespace BusinessLayer
             RolRepository rolRepository = new RolRepository();
             return rolRepository.GetRolesUser(idCliente);
         }
+
+        public Rol GetRol(int id)
+        {
+            RolRepository rolRepository = new RolRepository();
+            return rolRepository.Single(u => u.Id == id);
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace MiwTienda.Controllers
                         Fecha = DateTime.Now,
                         MetodoPagoId = pedidoViewModels.methodPay
                     },
-                    Producto = carrito.OrderBy(u=>u.Id).ToArray()
+                    Producto = carrito
                 };
                 if (pedidoBL.CreatePedidoProductos(pedido))
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MiwTienda.Models;
+using static MiwTienda.Models.Roles;
 
 namespace MiwTienda.Controllers
 {
@@ -148,12 +150,16 @@ namespace MiwTienda.Controllers
             if (ModelState.IsValid)
             {
                 AccountBL accountBL = new AccountBL();
-                var persona = new Cliente 
-                { 
-                    Nombre = model.Nombre, 
-                    Direccion = model.Direccion, 
-                    Email = model.Email, 
-                    Password = model.Password 
+                var persona = new Cliente
+                {
+                    Nombre = model.Nombre,
+                    Direccion = model.Direccion,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Rol = new List<Rol>() 
+                    { 
+                        new RolBL().GetRol((int)RolUser.User) 
+                    }
                 };
                 var result = accountBL.CreateAccount(persona);
                 if (result.Succeeded)

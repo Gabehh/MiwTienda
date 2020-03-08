@@ -26,8 +26,11 @@
                             <p class="lead">Disponible: @producto.Cantidad</p>
                             <p class="lead">@producto.Descripcion</p>
                         </div>
-                        <h2 class="text-center">@Html.ActionLink("Editar", "Editar", "Producto", new { id = producto.Id }, null)</h2>
-                        <h2 class="text-center">@Html.ActionLink("Eliminar", "Eliminar", "Producto", new { id = producto.Id }, null)</h2>
+                        @if (@User.IsInRole("Admin"))
+                        {
+                            <h2 class="text-center">@Html.ActionLink("Editar", "Editar", "Producto", new { id = producto.Id }, null)</h2>
+                            <h2 class="text-center">@Html.ActionLink("Eliminar", "Eliminar", "Producto", new { id = producto.Id }, null)</h2>
+                        }
                     </div>
                 </div>
             </div>

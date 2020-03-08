@@ -29,7 +29,7 @@
             foreach (var producto in Model.carrito)
             {
                 <tr>
-                    <td><img style="width:60px;height:40px" src="@producto.imagen" /></td>
+                    <td><img style="width:60px;height:40px" src="../Imagenes/@producto.imagen" /></td>
                     <td>@Html.ActionLink(@producto.nombre, "Detail", "Producto", new { id = @producto.id }, null)</td>
                     <td>@producto.valor €</td>
                     <td>@producto.cantidadComprar</td>

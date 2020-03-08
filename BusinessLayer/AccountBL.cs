@@ -17,7 +17,7 @@ namespace BusinessLayer
                 ClienteRepository clienteRepository = new ClienteRepository();
                 if (!clienteRepository.CheckEmail(persona.Email))
                 {
-                    clienteRepository.Create(persona);
+                    clienteRepository.CreateCliente(persona);
                     result = persona.Id != 0 ? IdentityResult.Success : new IdentityResult("No se ha creado el usuario");
                 }
                 else
