@@ -15,7 +15,7 @@ namespace DataLayer.Repository
             using(ModelContainer1 container1 = new ModelContainer1())
             {
                 container1.PedidoSet.Add(pedido);
-                pedido.Producto.ToList().ForEach(u => container1.Entry(u).State = EntityState.Modified);
+                pedido.Producto.ToList().ForEach(u => container1.Entry(u).State = EntityState.Unchanged);
                 return container1.SaveChanges()>0;
             }
         }

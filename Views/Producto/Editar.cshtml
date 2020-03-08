@@ -33,7 +33,8 @@
     <div class="form-group">
         @Html.LabelFor(m => m.imagen, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.imagen, new { @class = "form-control", type = "file" })
+            @Html.Label("imagen", "Usando: " + Model.imagen.FileName, new { @class = "col-md-2 control-label"})
+            @Html.TextBoxFor(m => m.imagen, null, new { @class = "form-control", type = "file" })
         </div>
     </div>
     <div class="form-group">

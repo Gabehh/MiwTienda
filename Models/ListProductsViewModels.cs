@@ -44,7 +44,6 @@ namespace MiwTienda.Models
         [Display(Name = "Stock")]
         public int stock { get; set; }
         [Display(Name = "Imagen")]
-        [Required]
         public HttpPostedFileBase imagen { get; set; }
     }
 }

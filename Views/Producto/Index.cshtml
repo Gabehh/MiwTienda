@@ -25,12 +25,11 @@
                             <p class="lead">Precio: @producto.Precio €</p>
                             <p class="lead">Disponible: @producto.Cantidad</p>
                             <p class="lead">@producto.Descripcion</p>
+                            @if (@User.IsInRole("Admin"))
+                            {
+                                <p class="lead">@Html.ActionLink("Editar", "Editar", "Producto", new { id = producto.Id }, null) @Html.ActionLink("Eliminar", "Eliminar", "Producto", new { id = producto.Id }, null)</p>
+                            }
                         </div>
-                        @if (@User.IsInRole("Admin"))
-                        {
-                            <h2 class="text-center">@Html.ActionLink("Editar", "Editar", "Producto", new { id = producto.Id }, null)</h2>
-                            <h2 class="text-center">@Html.ActionLink("Eliminar", "Eliminar", "Producto", new { id = producto.Id }, null)</h2>
-                        }
                     </div>
                 </div>
             </div>

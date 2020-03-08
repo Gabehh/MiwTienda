@@ -18,6 +18,16 @@ namespace MiwTienda.Models.Binders
             {
                 cc = new CarritoCompra();
                 controllerContext.HttpContext.Session["key_cc"] = cc;
+                cc.idUser = Convert.ToInt32(controllerContext.HttpContext.Session["id"]);
+            }
+            else
+            {
+                if(cc.idUser != Convert.ToInt32(controllerContext.HttpContext.Session["id"]))
+                {
+                    cc = new CarritoCompra();
+                    controllerContext.HttpContext.Session["key_cc"] = cc;
+                    cc.idUser = Convert.ToInt32(controllerContext.HttpContext.Session["id"]);
+                }
             }
 
             return cc;

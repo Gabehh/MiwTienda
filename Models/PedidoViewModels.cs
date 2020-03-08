@@ -16,7 +16,7 @@ namespace MiwTienda.Models
         [Display(Name = "Titular de la tarjeta:")]
         public string titular { get; set; }
         [Display(Name = "Número de Tarjeta")]
-        public int numero { get; set; }
+        public string numero { get; set; }
         [Display(Name = "Mes de caducidad")]
         public string caducidad { get; set; }
         [Display(Name = "Código CVC2")]

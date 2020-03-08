@@ -464,10 +464,10 @@ namespace MiwTienda.Controllers
                 new Claim(ClaimTypes.NameIdentifier, persona.Id.ToString()),
                 new Claim(ClaimTypes.Role, String.Join(",",roles.Select(u=>u.Descripcion)))
             };
-
             var identity = new ClaimsIdentity(claims, "ApplicationCookie");
             var context = Request.GetOwinContext();
             var authManager = context.Authentication;
+            Session["id"] = persona.Id.ToString();
             authManager.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
         }
 

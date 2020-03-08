@@ -23,13 +23,17 @@ namespace MiwTienda.Controllers
         public ActionResult Editar(int id)
         {
             var producto = new ProductoBL().GetProductoById(id);
+            string path = System.IO.Path.Combine(
+                       Server.MapPath("~/Imagenes/"), producto.Imagen);
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
             ProductCreateViewModel productCreateViewModel = new ProductCreateViewModel()
             {
                 id = producto.Id,
                 descripcion = producto.Descripcion,
                 nombre = producto.Nombre,
                 stock = producto.Cantidad,
-                valor = producto.Precio
+                valor = producto.Precio,
+                imagen = new MemoryPostedFile(bytes,producto.Imagen)
             };
             return View(productCreateViewModel);
         }
@@ -52,20 +56,24 @@ namespace MiwTienda.Controllers
             if (ModelState.IsValid)
             {
                 var producto = new ProductoBL().GetProductoById(_producto.id);
-                string pic = System.IO.Path.GetFileName(_producto.imagen.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/Imagenes/"), pic);
-                _producto.imagen.SaveAs(path);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    _producto.imagen.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
                 producto.Nombre = _producto.nombre;
                 producto.Cantidad = _producto.stock;
                 producto.Descripcion = _producto.descripcion;
                 producto.Precio = _producto.valor;
-                producto.Imagen = pic;
+
+                if (_producto.imagen != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        _producto.imagen.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                    }
+                    string pic = System.IO.Path.GetFileName(_producto.imagen.FileName);
+                    string path = System.IO.Path.Combine(
+                                           Server.MapPath("~/Imagenes/"), pic);
+                    _producto.imagen.SaveAs(path);
+                    producto.Imagen = pic;
+                }
 
                 if (new ProductoBL().Update(producto))
                     return RedirectToAction("Index", "Home");
@@ -79,6 +87,7 @@ namespace MiwTienda.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AgregarProducto(ProductCreateViewModel producto)
         {
+            if (producto.imagen == null) ModelState.AddModelError("", "El campo Imagen es obligatorio");
             if (ModelState.IsValid)
             {
                 string pic = System.IO.Path.GetFileName(producto.imagen.FileName);
@@ -152,6 +161,24 @@ namespace MiwTienda.Controllers
                 return View(producto);
             }
             return RedirectToAction("AddProducto", "Carrito", producto);
+        }
+
+        protected class MemoryPostedFile : HttpPostedFileBase
+        {
+            private readonly byte[] fileBytes;
+
+            public MemoryPostedFile(byte[] fileBytes, string fileName = null)
+            {
+                this.fileBytes = fileBytes;
+                this.FileName = fileName;
+                this.InputStream = new MemoryStream(fileBytes);
+            }
+
+            public override int ContentLength => fileBytes.Length;
+
+            public override string FileName { get; }
+
+            public override Stream InputStream { get; }
         }
     }
 }

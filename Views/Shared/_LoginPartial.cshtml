@@ -12,13 +12,17 @@
                 @User.Identity.GetUserName()
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                @Html.ActionLink("Carrito", "Index", "Carrito", routeValues: null, htmlAttributes: new { title = "Manage", @class = "dropdown-item" })
-                @Html.ActionLink("Mis Facturas", "Misfacturas", "Pedido", routeValues: null, htmlAttributes: new { title = "Manage", @class = "dropdown-item" })
+                @Html.ActionLink("Carrito", "Index", "Carrito", routeValues: null, htmlAttributes: new {  @class = "dropdown-item" })
+                @Html.ActionLink("Mis Facturas", "Misfacturas", "Pedido", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+                @if (@User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Agregar Producto", "AgregarProducto", "Producto", routeValues: null, htmlAttributes: new { @class = "dropdown-item" })
+                }
             </div>
         </li>
 
-        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Cerrar sesión</a></li>
-    </ul>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link">Cerrar sesión</a></li>
+            </ul>
     }
 }
 else

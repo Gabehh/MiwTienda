@@ -14,7 +14,7 @@
 </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Tienda Online</a>
+        @Html.ActionLink("Tienda Online", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,18 +24,13 @@
                 @*<li class="nav-item">
             @Html.ActionLink("Acerca de", "About", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link" })
         </li>*@
-                @if (@User.IsInRole("Admin"))
+                @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
                 {
-                    <li class="nav-item">
-                        @Html.ActionLink("Agregar Producto", "AgregarProducto", "Producto", routeValues: null, htmlAttributes: new { @class = "nav-link" })
-                    </li>
+                    @Html.TextBox("palabraClave", "", new { @class = "form-control mr-sm-2" })
+                    <input type="submit" value="Buscar" class="btn btn-outline-info my-2 my-sm-0" />
                 }
             </ul>
-            @using (Html.BeginForm("Index", "Producto", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form" }))
-            {
-                @Html.TextBox("palabraClave","", new { @class = "form-control mr-sm-2" })
-                <input type="submit" value="Buscar" class="btn btn-outline-info my-2 my-sm-0" />
-            }
+
             @Html.Partial("_LoginPartial")
         </div>
     </nav>
