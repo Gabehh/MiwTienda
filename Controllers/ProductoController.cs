@@ -12,13 +12,13 @@ namespace MiwTienda.Controllers
 {
     public class ProductoController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult AgregarProducto()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Editar(int id)
         {
@@ -34,7 +34,7 @@ namespace MiwTienda.Controllers
             return View(productCreateViewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Eliminar(int id)
         {
             var producto = new ProductoBL().GetProductoById(id);
@@ -45,7 +45,7 @@ namespace MiwTienda.Controllers
             return View("Error");
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Editar(ProductCreateViewModel _producto)
         {
@@ -76,7 +76,7 @@ namespace MiwTienda.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult AgregarProducto(ProductCreateViewModel producto)
         {
             if (ModelState.IsValid)

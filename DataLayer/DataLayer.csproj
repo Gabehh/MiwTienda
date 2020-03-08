@@ -95,9 +95,11 @@
     <Compile Include="Repository\IPedidoRepository.cs" />
     <Compile Include="Repository\IProductoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IRolesRepository.cs" />
     <Compile Include="Repository\PagoRepository.cs" />
     <Compile Include="Repository\PedidoRepository.cs" />
     <Compile Include="Repository\ProductoRepository.cs" />
+    <Compile Include="Repository\RolRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

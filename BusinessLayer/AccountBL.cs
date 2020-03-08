@@ -39,7 +39,7 @@ namespace BusinessLayer
             return clienteRepository.Single(u => u.Email == email && u.Password == password);
         }
 
-        public Cliente GetClienteById (int id)
+        public Cliente GetClienteById(int id)
         {
             ClienteRepository clienteRepository = new ClienteRepository();
             return clienteRepository.Single(u => u.Id == id);

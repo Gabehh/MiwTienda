@@ -148,7 +148,13 @@ namespace MiwTienda.Controllers
             if (ModelState.IsValid)
             {
                 AccountBL accountBL = new AccountBL();
-                var persona = new Cliente { Nombre = model.Nombre, Direccion = model.Direccion, Email = model.Email, Password = model.Password };
+                var persona = new Cliente 
+                { 
+                    Nombre = model.Nombre, 
+                    Direccion = model.Direccion, 
+                    Email = model.Email, 
+                    Password = model.Password 
+                };
                 var result = accountBL.CreateAccount(persona);
                 if (result.Succeeded)
                 {
@@ -444,12 +450,15 @@ namespace MiwTienda.Controllers
 
         private void SingIn(Cliente persona)
         {
-            var claims = new[] 
-            { 
-                new Claim(ClaimTypes.Name, persona.Nombre), 
-                new Claim(ClaimTypes.Email, persona.Email), 
-                new Claim(ClaimTypes.NameIdentifier, persona.Id.ToString()) 
+            var roles = new RolBL().GetRolesByUser(persona.Id);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, persona.Nombre),
+                new Claim(ClaimTypes.Email, persona.Email),
+                new Claim(ClaimTypes.NameIdentifier, persona.Id.ToString()),
+                new Claim(ClaimTypes.Role, String.Join(",",roles.Select(u=>u.Descripcion)))
             };
+
             var identity = new ClaimsIdentity(claims, "ApplicationCookie");
             var context = Request.GetOwinContext();
             var authManager = context.Authentication;

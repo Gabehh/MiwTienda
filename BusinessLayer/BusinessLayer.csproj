@@ -71,6 +71,7 @@
     <Compile Include="PedidoBL.cs" />
     <Compile Include="ProductoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
