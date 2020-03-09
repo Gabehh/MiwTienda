@@ -4,223 +4,223 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ClienteRol">
-          <Key>
-            <PropertyRef Name="Cliente_Id" />
-            <PropertyRef Name="Rol_Id" />
-          </Key>
-          <Property Name="Cliente_Id" Type="int" Nullable="false" />
-          <Property Name="Rol_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ClienteSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EstadoSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TipoEstado" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FacturaSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
-          <Property Name="MetodoPagoId" Type="int" Nullable="false" />
-          <Property Name="Pedido_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MetodoPagoSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TipoMetodo" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PedidoSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClienteId" Type="int" Nullable="false" />
-          <Property Name="EstadoId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProductoPedido">
-          <Key>
-            <PropertyRef Name="Producto_Id" />
-            <PropertyRef Name="Pedido_Id" />
-          </Key>
-          <Property Name="Producto_Id" Type="int" Nullable="false" />
-          <Property Name="Pedido_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProductoSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Imagen" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Cantidad" Type="int" Nullable="false" />
-          <Property Name="Precio" Type="float" Nullable="false" />
-          <Property Name="Categoria" Type="int" />
-        </EntityType>
-        <EntityType Name="RolSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_ClientePedido">
-          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
-          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClienteSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PedidoSet">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClienteRol_Cliente">
-          <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
-          <End Role="ClienteRol" Type="Self.ClienteRol" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClienteSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClienteRol">
-              <PropertyRef Name="Cliente_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClienteRol_Rol">
-          <End Role="RolSet" Type="Self.RolSet" Multiplicity="1" />
-          <End Role="ClienteRol" Type="Self.ClienteRol" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RolSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClienteRol">
-              <PropertyRef Name="Rol_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EstadoPedido">
-          <End Role="EstadoSet" Type="Self.EstadoSet" Multiplicity="1" />
-          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EstadoSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PedidoSet">
-              <PropertyRef Name="EstadoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FacturaPedido">
-          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1" />
-          <End Role="FacturaSet" Type="Self.FacturaSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PedidoSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FacturaSet">
-              <PropertyRef Name="Pedido_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MetodoPagoFactura">
-          <End Role="MetodoPagoSet" Type="Self.MetodoPagoSet" Multiplicity="1" />
-          <End Role="FacturaSet" Type="Self.FacturaSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MetodoPagoSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FacturaSet">
-              <PropertyRef Name="MetodoPagoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductoPedido_Pedido">
-          <End Role="PedidoSet" Type="Self.PedidoSet" Multiplicity="1" />
-          <End Role="ProductoPedido" Type="Self.ProductoPedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PedidoSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductoPedido">
-              <PropertyRef Name="Pedido_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductoPedido_Producto">
-          <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="1" />
-          <End Role="ProductoPedido" Type="Self.ProductoPedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductoSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductoPedido">
-              <PropertyRef Name="Producto_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="ClienteRol" EntityType="Self.ClienteRol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClienteSet" EntityType="Self.ClienteSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EstadoSet" EntityType="Self.EstadoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FacturaSet" EntityType="Self.FacturaSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MetodoPagoSet" EntityType="Self.MetodoPagoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PedidoSet" EntityType="Self.PedidoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductoPedido" EntityType="Self.ProductoPedido" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductoSet" EntityType="Self.ProductoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolSet" EntityType="Self.RolSet" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ClientePedido" Association="Self.FK_ClientePedido">
-            <End Role="ClienteSet" EntitySet="ClienteSet" />
-            <End Role="PedidoSet" EntitySet="PedidoSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClienteRol_Cliente" Association="Self.FK_ClienteRol_Cliente">
-            <End Role="ClienteSet" EntitySet="ClienteSet" />
-            <End Role="ClienteRol" EntitySet="ClienteRol" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClienteRol_Rol" Association="Self.FK_ClienteRol_Rol">
-            <End Role="RolSet" EntitySet="RolSet" />
-            <End Role="ClienteRol" EntitySet="ClienteRol" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EstadoPedido" Association="Self.FK_EstadoPedido">
-            <End Role="EstadoSet" EntitySet="EstadoSet" />
-            <End Role="PedidoSet" EntitySet="PedidoSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FacturaPedido" Association="Self.FK_FacturaPedido">
-            <End Role="PedidoSet" EntitySet="PedidoSet" />
-            <End Role="FacturaSet" EntitySet="FacturaSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MetodoPagoFactura" Association="Self.FK_MetodoPagoFactura">
-            <End Role="MetodoPagoSet" EntitySet="MetodoPagoSet" />
-            <End Role="FacturaSet" EntitySet="FacturaSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductoPedido_Pedido" Association="Self.FK_ProductoPedido_Pedido">
-            <End Role="PedidoSet" EntitySet="PedidoSet" />
-            <End Role="ProductoPedido" EntitySet="ProductoPedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductoPedido_Producto" Association="Self.FK_ProductoPedido_Producto">
-            <End Role="ProductoSet" EntitySet="ProductoSet" />
-            <End Role="ProductoPedido" EntitySet="ProductoPedido" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="ClienteSet" EntityType="Model.Store.ClienteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RolSet" EntityType="Model.Store.RolSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PedidoSet" EntityType="Model.Store.PedidoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductoSet" EntityType="Model.Store.ProductoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FacturaSet" EntityType="Model.Store.FacturaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MetodoPagoSet" EntityType="Model.Store.MetodoPagoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EstadoSet" EntityType="Model.Store.EstadoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClienteRol" EntityType="Model.Store.ClienteRol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductoPedido" EntityType="Model.Store.ProductoPedido" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ClienteRol_Cliente" Association="Model.Store.FK_ClienteRol_Cliente">
+      <End Role="Cliente" EntitySet="ClienteSet" />
+      <End Role="ClienteRol" EntitySet="ClienteRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClienteRol_Rol" Association="Model.Store.FK_ClienteRol_Rol">
+      <End Role="Rol" EntitySet="RolSet" />
+      <End Role="ClienteRol" EntitySet="ClienteRol" />
+    </AssociationSet>
+    <AssociationSet Name="ClientePedido" Association="Model.Store.ClientePedido">
+      <End Role="Cliente" EntitySet="ClienteSet" />
+      <End Role="Pedido" EntitySet="PedidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="MetodoPagoFactura" Association="Model.Store.MetodoPagoFactura">
+      <End Role="MetodoPago" EntitySet="MetodoPagoSet" />
+      <End Role="Factura" EntitySet="FacturaSet" />
+    </AssociationSet>
+    <AssociationSet Name="EstadoPedido" Association="Model.Store.EstadoPedido">
+      <End Role="Estado" EntitySet="EstadoSet" />
+      <End Role="Pedido" EntitySet="PedidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FacturaPedido" Association="Model.Store.FacturaPedido">
+      <End Role="Factura" EntitySet="FacturaSet" />
+      <End Role="Pedido" EntitySet="PedidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPedido_Producto" Association="Model.Store.FK_ProductoPedido_Producto">
+      <End Role="Producto" EntitySet="ProductoSet" />
+      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPedido_Pedido" Association="Model.Store.FK_ProductoPedido_Pedido">
+      <End Role="Pedido" EntitySet="PedidoSet" />
+      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RolSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PedidoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClienteId" Type="int" Nullable="false" />
+    <Property Name="EstadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Imagen" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="float" Nullable="false" />
+    <Property Name="Categoria" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="FacturaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="MetodoPagoId" Type="int" Nullable="false" />
+    <Property Name="Pedido_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MetodoPagoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoMetodo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoEstado" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClienteRol">
+    <Key>
+      <PropertyRef Name="Cliente_Id" />
+      <PropertyRef Name="Rol_Id" />
+    </Key>
+    <Property Name="Cliente_Id" Type="int" Nullable="false" />
+    <Property Name="Rol_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductoPedido">
+    <Key>
+      <PropertyRef Name="Producto_Id" />
+      <PropertyRef Name="Pedido_Id" />
+    </Key>
+    <Property Name="Producto_Id" Type="int" Nullable="false" />
+    <Property Name="Pedido_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientePedido">
+    <End Role="Cliente" Type="Model.Store.ClienteSet" Multiplicity="1" />
+    <End Role="Pedido" Type="Model.Store.PedidoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MetodoPagoFactura">
+    <End Role="MetodoPago" Type="Model.Store.MetodoPagoSet" Multiplicity="1" />
+    <End Role="Factura" Type="Model.Store.FacturaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MetodoPago">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="MetodoPagoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EstadoPedido">
+    <End Role="Estado" Type="Model.Store.EstadoSet" Multiplicity="1" />
+    <End Role="Pedido" Type="Model.Store.PedidoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="EstadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FacturaPedido">
+    <End Role="Factura" Type="Model.Store.FacturaSet" Multiplicity="*" />
+    <End Role="Pedido" Type="Model.Store.PedidoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Factura">
+        <PropertyRef Name="Pedido_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClienteRol_Cliente">
+    <End Role="Cliente" Type="Model.Store.ClienteSet" Multiplicity="1" />
+    <End Role="ClienteRol" Type="Model.Store.ClienteRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteRol">
+        <PropertyRef Name="Cliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClienteRol_Rol">
+    <End Role="ClienteRol" Type="Model.Store.ClienteRol" Multiplicity="*" />
+    <End Role="Rol" Type="Model.Store.RolSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteRol">
+        <PropertyRef Name="Rol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPedido_Producto">
+    <End Role="Producto" Type="Model.Store.ProductoSet" Multiplicity="1" />
+    <End Role="ProductoPedido" Type="Model.Store.ProductoPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductoPedido">
+        <PropertyRef Name="Producto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPedido_Pedido">
+    <End Role="ProductoPedido" Type="Model.Store.ProductoPedido" Multiplicity="*" />
+    <End Role="Pedido" Type="Model.Store.PedidoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductoPedido">
+        <PropertyRef Name="Pedido_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -413,13 +413,13 @@
     <EntitySetMapping Name="ProductoSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Producto)">
         <MappingFragment StoreEntitySet="ProductoSet">
-          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Imagen" ColumnName="Imagen" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

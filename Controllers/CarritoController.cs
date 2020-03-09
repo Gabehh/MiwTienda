@@ -32,6 +32,8 @@ namespace MiwTienda.Controllers
             return View(cesta);
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Abastecimiento()
         {
