@@ -195,6 +195,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Binders\CarritoCompraModelBinder.cs" />
     <Compile Include="Models\CarritoCompra.cs" />
+    <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListProductsViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

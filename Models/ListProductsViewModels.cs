@@ -45,6 +45,9 @@ namespace MiwTienda.Models
         public int stock { get; set; }
         [Display(Name = "Imagen")]
         public HttpPostedFileBase imagen { get; set; }
+        [Required]
+        [Display(Name = "Categoría")]
+        public int categoria { get; set; }
     }
 
     public class Abastecimiento

@@ -2,9 +2,7 @@
 using DataLayer.Model;
 using MiwTienda.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,6 +31,7 @@ namespace MiwTienda.Controllers
                 nombre = producto.Nombre,
                 stock = producto.Cantidad,
                 valor = producto.Precio,
+                categoria = producto.Categoria??0,
                 imagen = new MemoryPostedFile(bytes,producto.Imagen)
             };
             return View(productCreateViewModel);
@@ -60,6 +59,7 @@ namespace MiwTienda.Controllers
                 producto.Cantidad = _producto.stock;
                 producto.Descripcion = _producto.descripcion;
                 producto.Precio = _producto.valor;
+                producto.Categoria = _producto.categoria;
 
                 if (_producto.imagen != null)
                 {
@@ -105,7 +105,8 @@ namespace MiwTienda.Controllers
                     Descripcion = producto.descripcion,
                     Cantidad = producto.stock,
                     Imagen = pic,
-                    Precio = producto.valor
+                    Precio = producto.valor,
+                    Categoria = producto.categoria
                 };
                 if (new ProductoBL().CreateProduct(newProduct))
                     return RedirectToAction("Index", "Home");
@@ -124,6 +125,20 @@ namespace MiwTienda.Controllers
                 var productos = new ProductoBL().GetProductosByWord(palabraClave);
                 ListaProductoViewModel producto = new ListaProductoViewModel() { productos = productos, palabraClave = palabraClave };
                 return View(producto);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
+        public ActionResult Categoria(int categoria)
+        {
+            try
+            {
+                var productos = new ProductoBL().GetProductosByCategory(categoria);
+                ListaProductoViewModel producto = new ListaProductoViewModel() { productos = productos, palabraClave = "" };
+                return View("Index", producto);
             }
             catch (Exception ex)
             {

@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="Model.Rol" Width="1.5" PointX="9.125" PointY="2.125" />
         <EntityTypeShape EntityType="Model.Pedido" Width="1.5" PointX="9" PointY="4.375" />
         <EntityTypeShape EntityType="Model.Producto" Width="1.5" PointX="5.25" PointY="3.875" />
-        <AssociationConnector Association="Model.ProductoPedido" />
         <AssociationConnector Association="Model.ClienteRol" />
         <AssociationConnector Association="Model.ClientePedido" />
         <EntityTypeShape EntityType="Model.Factura" Width="1.5" PointX="5" PointY="8.875" />
@@ -18,6 +17,7 @@
         <AssociationConnector Association="Model.MetodoPagoFactura" />
         <AssociationConnector Association="Model.EstadoPedido" />
         <AssociationConnector Association="Model.FacturaPedido" />
+        <AssociationConnector Association="Model.ProductoPedido" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -24,10 +24,10 @@ namespace DataLayer.Model
         public int ClienteId { get; set; }
         public int EstadoId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producto> Producto { get; set; }
         public virtual Cliente Cliente { get; set; }
         public virtual Estado Estado { get; set; }
         public virtual Factura Factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

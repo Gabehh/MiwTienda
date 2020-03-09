@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/25/2020 03:11:45
+-- Date Created: 03/09/2020 21:27:43
 -- Generated from EDMX file: C:\Users\gabe3\source\repos\MiwTienda\DataLayer\Model\Model.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,8 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ProductoPedido_Producto]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoPedido] DROP CONSTRAINT [FK_ProductoPedido_Producto];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ProductoPedido_Pedido]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoPedido] DROP CONSTRAINT [FK_ProductoPedido_Pedido];
+IF OBJECT_ID(N'[dbo].[FK_ClientePedido]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PedidoSet] DROP CONSTRAINT [FK_ClientePedido];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ClienteRol_Cliente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ClienteRol] DROP CONSTRAINT [FK_ClienteRol_Cliente];
@@ -29,31 +26,52 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ClienteRol_Rol]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ClienteRol] DROP CONSTRAINT [FK_ClienteRol_Rol];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ClientePedido]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PedidoSet] DROP CONSTRAINT [FK_ClientePedido];
+IF OBJECT_ID(N'[dbo].[FK_EstadoPedido]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PedidoSet] DROP CONSTRAINT [FK_EstadoPedido];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FacturaPedido]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FacturaSet] DROP CONSTRAINT [FK_FacturaPedido];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MetodoPagoFactura]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FacturaSet] DROP CONSTRAINT [FK_MetodoPagoFactura];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductoPedido_Pedido]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoPedido] DROP CONSTRAINT [FK_ProductoPedido_Pedido];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductoPedido_Producto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoPedido] DROP CONSTRAINT [FK_ProductoPedido_Producto];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[ClienteRol]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClienteRol];
+GO
 IF OBJECT_ID(N'[dbo].[ClienteSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ClienteSet];
 GO
-IF OBJECT_ID(N'[dbo].[RolSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[RolSet];
+IF OBJECT_ID(N'[dbo].[EstadoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EstadoSet];
+GO
+IF OBJECT_ID(N'[dbo].[FacturaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FacturaSet];
+GO
+IF OBJECT_ID(N'[dbo].[MetodoPagoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MetodoPagoSet];
 GO
 IF OBJECT_ID(N'[dbo].[PedidoSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PedidoSet];
 GO
-IF OBJECT_ID(N'[dbo].[ProductoSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProductoSet];
-GO
 IF OBJECT_ID(N'[dbo].[ProductoPedido]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProductoPedido];
 GO
-IF OBJECT_ID(N'[dbo].[ClienteRol]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ClienteRol];
+IF OBJECT_ID(N'[dbo].[ProductoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductoSet];
+GO
+IF OBJECT_ID(N'[dbo].[RolSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RolSet];
 GO
 
 -- --------------------------------------------------
@@ -119,17 +137,17 @@ CREATE TABLE [dbo].[EstadoSet] (
 );
 GO
 
--- Creating table 'ProductoPedido'
-CREATE TABLE [dbo].[ProductoPedido] (
-    [Producto_Id] int  NOT NULL,
-    [Pedido_Id] int  NOT NULL
-);
-GO
-
 -- Creating table 'ClienteRol'
 CREATE TABLE [dbo].[ClienteRol] (
     [Cliente_Id] int  NOT NULL,
     [Rol_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'ProductoPedido'
+CREATE TABLE [dbo].[ProductoPedido] (
+    [Producto_Id] int  NOT NULL,
+    [Pedido_Id] int  NOT NULL
 );
 GO
 
@@ -179,45 +197,21 @@ ADD CONSTRAINT [PK_EstadoSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Producto_Id], [Pedido_Id] in table 'ProductoPedido'
-ALTER TABLE [dbo].[ProductoPedido]
-ADD CONSTRAINT [PK_ProductoPedido]
-    PRIMARY KEY CLUSTERED ([Producto_Id], [Pedido_Id] ASC);
-GO
-
 -- Creating primary key on [Cliente_Id], [Rol_Id] in table 'ClienteRol'
 ALTER TABLE [dbo].[ClienteRol]
 ADD CONSTRAINT [PK_ClienteRol]
     PRIMARY KEY CLUSTERED ([Cliente_Id], [Rol_Id] ASC);
 GO
 
+-- Creating primary key on [Producto_Id], [Pedido_Id] in table 'ProductoPedido'
+ALTER TABLE [dbo].[ProductoPedido]
+ADD CONSTRAINT [PK_ProductoPedido]
+    PRIMARY KEY CLUSTERED ([Producto_Id], [Pedido_Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Producto_Id] in table 'ProductoPedido'
-ALTER TABLE [dbo].[ProductoPedido]
-ADD CONSTRAINT [FK_ProductoPedido_Producto]
-    FOREIGN KEY ([Producto_Id])
-    REFERENCES [dbo].[ProductoSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Pedido_Id] in table 'ProductoPedido'
-ALTER TABLE [dbo].[ProductoPedido]
-ADD CONSTRAINT [FK_ProductoPedido_Pedido]
-    FOREIGN KEY ([Pedido_Id])
-    REFERENCES [dbo].[PedidoSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProductoPedido_Pedido'
-CREATE INDEX [IX_FK_ProductoPedido_Pedido]
-ON [dbo].[ProductoPedido]
-    ([Pedido_Id]);
-GO
 
 -- Creating foreign key on [Cliente_Id] in table 'ClienteRol'
 ALTER TABLE [dbo].[ClienteRol]
@@ -300,6 +294,30 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_FacturaPedido'
 CREATE INDEX [IX_FK_FacturaPedido]
 ON [dbo].[FacturaSet]
+    ([Pedido_Id]);
+GO
+
+-- Creating foreign key on [Producto_Id] in table 'ProductoPedido'
+ALTER TABLE [dbo].[ProductoPedido]
+ADD CONSTRAINT [FK_ProductoPedido_Producto]
+    FOREIGN KEY ([Producto_Id])
+    REFERENCES [dbo].[ProductoSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Pedido_Id] in table 'ProductoPedido'
+ALTER TABLE [dbo].[ProductoPedido]
+ADD CONSTRAINT [FK_ProductoPedido_Pedido]
+    FOREIGN KEY ([Pedido_Id])
+    REFERENCES [dbo].[PedidoSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProductoPedido_Pedido'
+CREATE INDEX [IX_FK_ProductoPedido_Pedido]
+ON [dbo].[ProductoPedido]
     ([Pedido_Id]);
 GO
 

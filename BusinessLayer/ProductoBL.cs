@@ -2,9 +2,6 @@
 using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
@@ -15,6 +12,13 @@ namespace BusinessLayer
             ProductoRepository productoRespository = new ProductoRepository();
             var productos = String.IsNullOrEmpty(palabra) ? productoRespository.GetAll() : productoRespository.Filter(u => u.Nombre.Contains(palabra) || u.Descripcion.Contains(palabra));
             return productos;
+        }
+
+        public List<Producto> GetProductosByCategory(int categoria)
+        {
+            ProductoRepository productoRespository = new ProductoRepository();
+            return productoRespository.Filter(u => u.Categoria == categoria);
+
         }
 
         public Producto GetProductoById(int id)
